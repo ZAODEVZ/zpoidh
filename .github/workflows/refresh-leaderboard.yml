@@ -128,3 +128,24 @@ jobs:
           else
             echo "No changes to leaderboard data."
           fi
+
+      - name: NEGATIVE TEST (verify branch only, not for main)
+        # A real partial run, no tampered files: refreshing from only bounty 1151
+        # legitimately assembles fewer submitters than the 34 already on disk.
+        # The guard must refuse it AND must leave data/ byte-identical.
+        run: |
+          set +e
+          python3 scripts/refresh-poidh-leaderboard.py --bounty 1151 --skip-web3bio
+          rc=$?
+          set -e
+          echo "script exited $rc"
+          if [ "$rc" -eq 0 ]; then
+            echo "FAIL: a shrinking run was allowed to publish"
+            exit 1
+          fi
+          if ! git diff --quiet data/; then
+            echo "FAIL: refused run still modified data/"
+            git diff --stat data/
+            exit 1
+          fi
+          echo "OK refused (exit $rc) and left data/ untouched"
