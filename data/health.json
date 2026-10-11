@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T05:46:19.097250+00:00",
+  "generated_at": "2026-10-11T05:23:51.022947+00:00",
   "note": "Findings from the advisory cron checks. They run continue-on-error so a human-only problem does not red-build every six hours - which means their output would otherwise live only in logs nobody opens. This file is the half that stays visible.",
   "promises": {
     "by_round": {
@@ -63,14 +63,15 @@
         "file": "rounds/_template/description.md",
         "line": 119,
         "due": "2026-10-08"
-      },
-      {
-        "file": "rounds/r7/README.md",
-        "line": 13,
-        "due": "2026-09-13"
       }
     ],
-    "upcoming": []
+    "upcoming": [
+      {
+        "file": "rounds/r7/README.md",
+        "line": 15,
+        "due": "2026-10-17"
+      }
+    ]
   },
   "send_gates": {
     "blocked": [
